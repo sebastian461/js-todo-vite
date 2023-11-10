@@ -6,6 +6,7 @@ import { renderTodos } from "./use-cases";
 const ElementIDs = {
   TodoList: ".todo-list",
   NewTodo: "#new-todo-input",
+  DeleteCompleted: ".clear-completed",
 };
 
 /**
@@ -30,6 +31,7 @@ export const App = (elementId) => {
   //Referencias HTML
   const newTodo = document.querySelector(ElementIDs.NewTodo);
   const todoList = document.querySelector(ElementIDs.TodoList);
+  const btnDeleteCompleted = document.querySelector(ElementIDs.DeleteCompleted);
 
   //Listeners
   newTodo.addEventListener("keyup", (event) => {
@@ -53,5 +55,10 @@ export const App = (elementId) => {
       todoStore.deleteTodo(element.getAttribute("data-id"));
       displayTodos();
     }
+  });
+
+  btnDeleteCompleted.addEventListener("click", () => {
+    todoStore.deleteCompleted();
+    displayTodos();
   });
 };
