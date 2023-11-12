@@ -1,12 +1,13 @@
 //La sintaxis correcta para importar archivos html es agregando al final '?raw'
 import todoStore from "../store/todo.store";
 import html from "./app.html?raw";
-import { renderTodos } from "./use-cases";
+import { renderTodos, renderPending } from "./use-cases";
 import { Filters } from "../store/todo.store";
 
 const ElementIDs = {
   DeleteCompleted: ".clear-completed",
   NewTodo: "#new-todo-input",
+  PendingTodo: "#pending-count",
   TodoFilters: ".filter",
   TodoList: ".todo-list",
 };
@@ -19,7 +20,9 @@ export const App = (elementId) => {
   //Función que dibuja las tareas en el HTML
   const displayTodos = () => {
     const todos = todoStore.getTodos(todoStore.getCurrentFilter());
+    const pending = todoStore.getTodos(Filters.Pending);
     renderTodos(ElementIDs.TodoList, todos);
+    renderPending(ElementIDs.PendingTodo, pending);
   };
 
   //Función ánonima autoinvocada
